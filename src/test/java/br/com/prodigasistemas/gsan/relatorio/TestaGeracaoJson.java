@@ -1,5 +1,6 @@
 package br.com.prodigasistemas.gsan.relatorio;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,8 @@ import com.google.gson.Gson;
 public class TestaGeracaoJson {
 
 	@Test
-	public void testaJsonUmItem() {
-		String retorno = "{\"descricao\":\"agua ardente\",\"unidadeMedida\":\"2Kg\"}";
+	public void testaJsonUmItem() throws UnsupportedEncodingException {
+		String retorno = new String("{\"descricao\":\"agua ardente\",\"unidadeMedida\":\"2Kg\"}".getBytes(), "UTF-8");
 		ReportItemDTO item = new ProdutoReportDTO(null, null, "agua ardente", "2Kg");
 		Gson gson = new Gson();
 		
@@ -26,20 +27,20 @@ public class TestaGeracaoJson {
 	}
 
 	@Test
-	public void testaGrupo(){
-		String header = "[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]";
+	public void testaGrupo() throws UnsupportedEncodingException{
+		String header = new String("[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]".getBytes(), "UTF-8");
 		
 		Gson gson = new Gson();
 		
-		assertEquals(header, gson.toJson(new ReportUtil().groupFieldsFromClass(ProdutoReportDTO.class)));
+		assertEquals(header, new String(gson.toJson(new ReportUtil().groupFieldsFromClass(ProdutoReportDTO.class)).getBytes(), "UTF-8"));
 	}
 	
 	@Test
-	public void testaGrupoTambemNoHeader(){
+	public void testaGrupoTambemNoHeader() throws UnsupportedEncodingException{
 		StringBuilder builder = new StringBuilder();
 		builder.append("{")
 		.append("\"cabecalho\":")
-		.append("[{\"name\":\"localidade\",\"description\":\"Localidade\"},{\"name\":\"descricao\",\"description\":\"Descrição\"},{\"name\":\"unidadeMedida\",\"description\":\"Unidade de Medida\"}]")
+		.append("[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"},{\"name\":\"descricao\",\"description\":\"Descrição\"},{\"name\":\"unidadeMedida\",\"description\":\"Unidade de Medida\"}]")
 		.append(",")
 		.append("\"dados\":")
 		.append("[")
@@ -49,8 +50,6 @@ public class TestaGeracaoJson {
 		.append(",")
 		.append("\"grupos\":[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]")
 		.append("}");
-		
-		System.out.println(builder.toString());
 		
 		ReportDTO report = new ReportDTO(ProdutoReportDTO.class);
 		
@@ -64,6 +63,6 @@ public class TestaGeracaoJson {
 		
 		System.out.println(gson.toJson(report));
 		
-		assertEquals(builder.toString(), gson.toJson(report));
+		assertEquals(new String(builder.toString().getBytes(), "UTF-8"), new String(gson.toJson(report).getBytes(), "UTF-8"));
 	}
 }
