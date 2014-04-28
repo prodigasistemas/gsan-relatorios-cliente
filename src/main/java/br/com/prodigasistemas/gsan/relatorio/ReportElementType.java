@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReportElementType {
 	String description() default "";
-	boolean header() default false;
+	boolean header() default true;
 	boolean group() default false;
 }

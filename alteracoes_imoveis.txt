@@ -1,0 +1,6 @@
+1970186;Alteração de Situação de Água;6; 
+1970186;Alteração de Situação de Esgoto;1; 
+1977164;Alteração de Situação de Água;2;3
+1977164;Alteração de Situação de Esgoto;1; 
+1977181;Alteração de Situação de Água;2;3
+1977181;Alteração de Situação de Esgoto;1; 

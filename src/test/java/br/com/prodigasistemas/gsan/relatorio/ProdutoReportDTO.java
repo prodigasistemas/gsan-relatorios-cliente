@@ -5,7 +5,7 @@ public class ProdutoReportDTO implements ReportItemDTO{
 	private static final long serialVersionUID = -5224725130381064147L;
 
 	
-	@ReportElementType(description="Município", group=true)
+	@ReportElementType(description="Município", group=true, header=true)
 	private String municipio;
 
 	@ReportElementType(description="Localidade", group=true, header=true)

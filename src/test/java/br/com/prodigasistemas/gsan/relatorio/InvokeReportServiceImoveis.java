@@ -1,39 +1,30 @@
 package br.com.prodigasistemas.gsan.relatorio;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public class InvokeReportService {
+public class InvokeReportServiceImoveis {
 
 	public static void main(String[] args) throws Exception {
-		
-		ReportDTO report = new ReportDTO(ProdutoReportDTO.class);
-		
+		ReportDTO report = new ReportDTO(AlteracaoImovelDTO.class);
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
-		ReportItemDTO i1 = new ProdutoReportDTO("belem", "marco", "agua ardente", "2Kg");
-		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "cano", "2");
-		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "agua", "4");
-		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "coco", "6");
-		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "soda", "565");
-		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "pedreira", "agua", "5");
-		linhas.add(i1);
-		i1 = new ProdutoReportDTO("ananindeua", "guanabara", "agua", "5");
-		linhas.add(i1);
-		
+
+		Scanner scanner = new Scanner(new File("alteracoes_imoveis.txt"));
+		String[] campos = null;
+		while (scanner.hasNextLine()){
+			campos = scanner.nextLine().split(";");
+			linhas.add(new AlteracaoImovelDTO(campos[0], campos[1], campos[2], campos[3]));
+		}
 		report.addLinhas(linhas);
 		
 		Gson gson = new Gson();
