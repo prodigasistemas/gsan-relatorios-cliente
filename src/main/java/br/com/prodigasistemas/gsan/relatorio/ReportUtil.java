@@ -4,18 +4,31 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportUtil {
+import com.google.gson.JsonElement;
 
-	public static List<ReportHeader> headerFields(Class item) {
-		Field[] campos = item.getDeclaredFields();
-		List<ReportHeader> headers = new ArrayList<ReportHeader>();
+public class ReportUtil {
+	
+	public List<ReportField> headerFieldsFromClass(Class t) {
+		return fieldsFromClass(t, false, true);
+	}
+
+	public List<ReportField> groupFieldsFromClass(Class t) {
+		return fieldsFromClass(t, true, false);
+	}
+	
+	public List<ReportField> fieldsFromClass(Class t, boolean group, boolean header) {
+		Field[] campos = t.getDeclaredFields();
+		List<ReportField> fields = new ArrayList<ReportField>();
 		for (Field field : campos) {
-			if (field.isAnnotationPresent(ReportHeaderType.class)){
-				ReportHeaderType campo  = field.getAnnotation(ReportHeaderType.class);
-				headers.add(new ReportHeader(field.getName(), campo.description()));
+			if (field.isAnnotationPresent(ReportElementType.class)){
+				ReportElementType campo  = field.getAnnotation(ReportElementType.class);
+				if ((group && campo.group()) || (header && campo.header())){
+					fields.add(new ReportField(field.getName(), campo.description()));
+				}
 			}
 		}
 		
-		return headers;
+		return fields;
 	}
+	
 }

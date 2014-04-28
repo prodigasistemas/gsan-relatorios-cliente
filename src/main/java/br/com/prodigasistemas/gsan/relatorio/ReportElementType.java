@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReportHeaderType {
-	String description();
+public @interface ReportElementType {
+	String description() default "";
+	boolean header() default false;
+	boolean group() default false;
 }
