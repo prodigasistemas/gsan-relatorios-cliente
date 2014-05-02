@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import br.com.prodigasistemas.gsan.relatorio.ProdutoReportDTO;
+import br.com.prodigasistemas.gsan.relatorio.TesteReportDTO;
 import br.com.prodigasistemas.gsan.relatorio.ReportDTO;
 import br.com.prodigasistemas.gsan.relatorio.ReportItemDTO;
 import br.com.prodigasistemas.gsan.relatorio.ReportUtil;
@@ -20,7 +20,7 @@ public class TestaGeracaoJson {
 	@Test
 	public void testaJsonUmItem() throws UnsupportedEncodingException {
 		String retorno = new String("{\"descricao\":\"agua ardente\",\"unidadeMedida\":\"2Kg\"}".getBytes(), "UTF-8");
-		ReportItemDTO item = new ProdutoReportDTO(null, null, "agua ardente", "2Kg");
+		ReportItemDTO item = new TesteReportDTO(null, null, "agua ardente", "2Kg");
 		Gson gson = new Gson();
 		
 		assertEquals(retorno, gson.toJson(item));
@@ -32,13 +32,15 @@ public class TestaGeracaoJson {
 		
 		Gson gson = new Gson();
 		
-		assertEquals(header, new String(gson.toJson(new ReportUtil().groupFieldsFromClass(ProdutoReportDTO.class)).getBytes(), "UTF-8"));
+		assertEquals(header, new String(gson.toJson(new ReportUtil().groupFieldsFromClass(TesteReportDTO.class)).getBytes(), "UTF-8"));
 	}
 	
 	@Test
 	public void testaGrupoTambemNoHeader() throws UnsupportedEncodingException{
 		StringBuilder builder = new StringBuilder();
 		builder.append("{")
+		.append("\"titulo\":\"\"")
+		.append(",")
 		.append("\"cabecalho\":")
 		.append("[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"},{\"name\":\"descricao\",\"description\":\"Descrição\"},{\"name\":\"unidadeMedida\",\"description\":\"Unidade de Medida\"}]")
 		.append(",")
@@ -51,9 +53,9 @@ public class TestaGeracaoJson {
 		.append("\"grupos\":[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]")
 		.append("}");
 		
-		ReportDTO report = new ReportDTO(ProdutoReportDTO.class);
+		ReportDTO report = new ReportDTO("", TesteReportDTO.class);
 		
-		ReportItemDTO i1 = new ProdutoReportDTO(null, null, "agua ardente", "2Kg");
+		ReportItemDTO i1 = new TesteReportDTO(null, null, "agua ardente", "2Kg");
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
 		linhas.add(i1);
 		

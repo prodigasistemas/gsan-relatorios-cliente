@@ -16,22 +16,22 @@ public class InvokeReportService {
 
 	public static void main(String[] args) throws Exception {
 		
-		ReportDTO report = new ReportDTO(ProdutoReportDTO.class);
+		ReportDTO report = new ReportDTO("", TesteReportDTO.class);
 		
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
-		ReportItemDTO i1 = new ProdutoReportDTO("belem", "marco", "agua ardente", "2Kg");
+		ReportItemDTO i1 = new TesteReportDTO("belem", "marco", "agua ardente", "2Kg");
 		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "cano", "2");
+		i1 = new TesteReportDTO("belem", "marco", "cano", "2");
 		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "agua", "4");
+		i1 = new TesteReportDTO("belem", "marco", "agua", "4");
 		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "coco", "6");
+		i1 = new TesteReportDTO("belem", "marco", "coco", "6");
 		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "marco", "soda", "565");
+		i1 = new TesteReportDTO("belem", "marco", "soda", "565");
 		linhas.add(i1);
-		i1 = new ProdutoReportDTO("belem", "pedreira", "agua", "5");
+		i1 = new TesteReportDTO("belem", "pedreira", "agua", "5");
 		linhas.add(i1);
-		i1 = new ProdutoReportDTO("ananindeua", "guanabara", "agua", "5");
+		i1 = new TesteReportDTO("ananindeua", "guanabara", "agua", "5");
 		linhas.add(i1);
 		
 		report.addLinhas(linhas);

@@ -8,6 +8,8 @@ public class ReportDTO implements Serializable {
 	
 	private static final long serialVersionUID = 6953518374306894571L;
 
+	private String titulo;
+	
 	private List<ReportField> cabecalho;
 	
 	private List<ReportItemDTO> dados = new LinkedList<ReportItemDTO>();
@@ -16,17 +18,26 @@ public class ReportDTO implements Serializable {
 	
 	private List<ReportField> grupos = new LinkedList<ReportField>();
 	
-	public ReportDTO(Class c) {
-		cabecalho = new ReportUtil().headerFieldsFromClass(c); 
-		grupos    = new ReportUtil().groupFieldsFromClass(c); 
+	public ReportDTO(String titulo, Class dataClass) {
+		this.titulo = titulo;
+		cabecalho = new ReportUtil().headerFieldsFromClass(dataClass); 
+		grupos    = new ReportUtil().groupFieldsFromClass(dataClass); 
 	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
+
 	public List<ReportField> getCabecalho() {
 		return cabecalho;
 	}
 	
 	public void setCabecalho(List<ReportField> cabecalho) {
 		this.cabecalho = cabecalho;
+	}
+
+	public void setGrupos(List<ReportField> grupos) {
+		this.grupos = grupos;
 	}
 
 	public List<ReportItemDTO> getDados() {
@@ -47,9 +58,5 @@ public class ReportDTO implements Serializable {
 
 	public List<ReportField> getGrupos() {
 		return grupos;
-	}
-
-	public void setGrupos(List<ReportField> grupos) {
-		this.grupos = grupos;
 	}
 }

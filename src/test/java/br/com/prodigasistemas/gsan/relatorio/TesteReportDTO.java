@@ -1,26 +1,26 @@
 package br.com.prodigasistemas.gsan.relatorio;
 
 
-public class ProdutoReportDTO implements ReportItemDTO{
+public class TesteReportDTO implements ReportItemDTO{
 	private static final long serialVersionUID = -5224725130381064147L;
 
 	
-	@ReportElementType(description="Município", group=true, header=true)
+	@ReportElementType(description="Município", group=true)
 	private String municipio;
 
-	@ReportElementType(description="Localidade", group=true, header=true)
+	@ReportElementType(description="Localidade", group=true)
 	private String localidade;
 
-	@ReportElementType(description="Descri\u00E7\u00E3o", header=true)
+	@ReportElementType(description="Descri\u00E7\u00E3o")
 	private String descricao;
 	
-	@ReportElementType(description="Unidade de Medida", header=true)
+	@ReportElementType(description="Unidade de Medida")
 	private String unidadeMedida;
 	
-	public ProdutoReportDTO(){
+	public TesteReportDTO(){
 	}
 	
-	public ProdutoReportDTO(String municipio, String localidade, String descricao, String unidadeMedida) {
+	public TesteReportDTO(String municipio, String localidade, String descricao, String unidadeMedida) {
 		super();
 		this.municipio = municipio;
 		this.localidade = localidade;
