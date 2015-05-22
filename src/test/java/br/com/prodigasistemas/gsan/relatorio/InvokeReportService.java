@@ -1,7 +1,6 @@
 package br.com.prodigasistemas.gsan.relatorio;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ public class InvokeReportService {
 	public static void main(String[] args) throws Exception {
 		
 		ReportDTO report = new ReportDTO("", TesteReportDTO.class);
+		report.setFormato(FormatoRelatorio.XLS);
 		
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
 		ReportItemDTO i1 = new TesteReportDTO("belem", "marco", "agua ardente", "2Kg");
@@ -42,7 +42,7 @@ public class InvokeReportService {
 		
 		Client client = Client.create();
 		
-		WebResource webResource = client.resource("http://192.168.0.18:3000/produtos_quimicos");
+		WebResource webResource = client.resource("http://localhost:3000/relatorios");
 		
 		ClientResponse response = webResource
 				.type("application/json")
