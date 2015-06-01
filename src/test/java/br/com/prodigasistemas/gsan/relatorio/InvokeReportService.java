@@ -16,14 +16,22 @@ public class InvokeReportService {
 	public static void main(String[] args) throws Exception {
 		
 		ReportDTO report = new ReportDTO("", TesteReportDTO.class);
-		report.setFormato(FormatoRelatorio.XLS);
+		report.setFormato(FormatoRelatorio.PDF);
 		
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
-		ReportItemDTO i1 = new TesteReportDTO("belem", "marco", "agua ardente", "2Kg");
+		ReportItemDTO i1 = new TesteReportDTO("belem", "marco", "agua ardente", "2");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("ananindeua", "marco", "cano", "66");
 		linhas.add(i1);
 		i1 = new TesteReportDTO("belem", "marco", "cano", "2");
 		linhas.add(i1);
+		i1 = new TesteReportDTO("ananindeua", "marco", "agua", "5");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("belem", "pedreira", "soda", "55");
+		linhas.add(i1);
 		i1 = new TesteReportDTO("belem", "marco", "agua", "4");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("ananindeua", "pedreira", "agua", "5");
 		linhas.add(i1);
 		i1 = new TesteReportDTO("belem", "marco", "coco", "6");
 		linhas.add(i1);
