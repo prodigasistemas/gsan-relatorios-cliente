@@ -11,7 +11,7 @@ public class TesteReportDTO implements ReportItemDTO{
 	@ReportElementType(description="Localidade", group=true)
 	private String localidade;
 
-	@ReportElementType(description="Descri\u00E7\u00E3o")
+	@ReportElementType(description="Descri\u00E7\u00E3o", group=true)
 	private String descricao;
 	
 	@ReportElementType(description="Unidade de Medida")
