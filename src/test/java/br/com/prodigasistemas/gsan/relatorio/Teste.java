@@ -15,7 +15,7 @@ public class Teste {
     
     public static void main(String[] args) throws Exception {
      
-        ReportDTO report = new ReportDTO("", TesteReportDTO.class);
+        ReportDTO report = new ReportDTO("", "teste.pdf", TesteReportDTO.class);
         
         List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
         ReportItemDTO i1 = new TesteReportDTO("belem", "marco", "agua ardente", "2Kg");

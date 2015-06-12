@@ -7,7 +7,7 @@ public class InvokeReportService {
 
 	public static void main(String[] args) throws Exception {
 		
-		ReportDTO report = new ReportDTO("", TesteReportDTO.class);
+		ReportDTO report = new ReportDTO("", null, TesteReportDTO.class);
 		report.setFormato(FormatoRelatorio.XLS);
 		
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();

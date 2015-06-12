@@ -17,7 +17,7 @@ import com.sun.jersey.api.client.WebResource;
 public class InvokeReportServiceImoveis {
 
 	public static void main(String[] args) throws Exception {
-		ReportDTO report = new ReportDTO("", AlteracaoImovelDTO.class);
+		ReportDTO report = new ReportDTO("", null, AlteracaoImovelDTO.class);
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
 
 		Scanner scanner = new Scanner(new File("alteracoes_imoveis.txt"));

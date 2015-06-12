@@ -53,7 +53,7 @@ public class TestaGeracaoJson {
 		.append("\"grupos\":[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]")
 		.append("}");
 		
-		ReportDTO report = new ReportDTO("", TesteReportDTO.class);
+		ReportDTO report = new ReportDTO("", null, TesteReportDTO.class);
 		
 		ReportItemDTO i1 = new TesteReportDTO(null, null, "agua ardente", "2Kg");
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();

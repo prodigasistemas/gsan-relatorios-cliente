@@ -10,6 +10,8 @@ public class ReportDTO implements Serializable {
 
 	private String titulo;
 	
+	private String name;
+	
 	private List<ReportField> cabecalho;
 	
 	private List<ReportItemDTO> dados = new LinkedList<ReportItemDTO>();
@@ -18,14 +20,19 @@ public class ReportDTO implements Serializable {
 	
 	private List<ReportField> grupos = new LinkedList<ReportField>();
 	
-	public ReportDTO(String titulo, Class dataClass) {
+	public ReportDTO(String titulo, String name, Class dataClass) {
 		this.titulo = titulo;
+		this.name = name;
 		cabecalho = new ReportUtil().headerFieldsFromClass(dataClass); 
 		grupos    = new ReportUtil().groupFieldsFromClass(dataClass); 
 	}
 	
 	public String getTitulo() {
 		return titulo;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public List<ReportField> getCabecalho() {
