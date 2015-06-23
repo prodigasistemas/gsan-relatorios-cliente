@@ -11,10 +11,10 @@ public class TesteReportDTO implements ReportItemDTO{
 	@ReportElementType(description="Localidade", group=true)
 	private String localidade;
 
-	@ReportElementType(description="Descri\u00E7\u00E3o", group=true)
+	@ReportElementType(description="Descri\u00E7\u00E3o")
 	private String descricao;
 	
-	@ReportElementType(description="Unidade de Medida")
+	@ReportElementType(description="Unidade de Medida", align="right", totalizer=true)
 	private String unidadeMedida;
 	
 	public TesteReportDTO(){

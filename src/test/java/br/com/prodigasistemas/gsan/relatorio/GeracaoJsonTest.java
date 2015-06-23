@@ -15,7 +15,7 @@ import br.com.prodigasistemas.gsan.relatorio.ReportUtil;
 
 import com.google.gson.Gson;
 
-public class TestaGeracaoJson {
+public class GeracaoJsonTest {
 
 	@Test
 	public void testaJsonUmItem() throws UnsupportedEncodingException {
@@ -28,7 +28,12 @@ public class TestaGeracaoJson {
 
 	@Test
 	public void testaGrupo() throws UnsupportedEncodingException{
-		String header = new String("[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]".getBytes(), "UTF-8");
+		StringBuilder builder = new StringBuilder();
+		builder.append("[")
+		.append("{\"name\":\"municipio\",\"description\":\"Município\"}")
+		.append(",{\"name\":\"localidade\",\"description\":\"Localidade\"}")
+		.append("]");
+		String header = new String(builder.toString().getBytes(), "UTF-8");
 		
 		Gson gson = new Gson();
 		
@@ -36,13 +41,29 @@ public class TestaGeracaoJson {
 	}
 	
 	@Test
+	public void testaApenasHeader() throws UnsupportedEncodingException{
+		StringBuilder builder = new StringBuilder();
+		builder.append("[")
+		.append("{\"name\":\"municipio\",\"description\":\"Município\",\"align\":\"left\"}")
+		.append(",{\"name\":\"localidade\",\"description\":\"Localidade\",\"align\":\"left\"}")
+		.append(",{\"name\":\"descricao\",\"description\":\"Descrição\",\"align\":\"left\"}")
+		.append(",{\"name\":\"unidadeMedida\",\"description\":\"Unidade de Medida\",\"align\":\"right\"}")
+		.append("]");
+		String header = new String(builder.toString().getBytes(), "UTF-8");
+		
+		Gson gson = new Gson();
+		
+		assertEquals(header, new String(gson.toJson(new ReportUtil().headerFieldsFromClass(TesteReportDTO.class)).getBytes(), "UTF-8"));
+	}
+
+	@Test
 	public void testaGrupoTambemNoHeader() throws UnsupportedEncodingException{
 		StringBuilder builder = new StringBuilder();
 		builder.append("{")
 		.append("\"titulo\":\"\"")
 		.append(",")
 		.append("\"cabecalho\":")
-		.append("[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"},{\"name\":\"descricao\",\"description\":\"Descrição\"},{\"name\":\"unidadeMedida\",\"description\":\"Unidade de Medida\"}]")
+		.append("[{\"name\":\"municipio\",\"description\":\"Município\",\"align\":\"left\"},{\"name\":\"localidade\",\"description\":\"Localidade\",\"align\":\"left\"},{\"name\":\"descricao\",\"description\":\"Descrição\",\"align\":\"left\"},{\"name\":\"unidadeMedida\",\"description\":\"Unidade de Medida\",\"align\":\"right\"}]")
 		.append(",")
 		.append("\"dados\":")
 		.append("[")
@@ -50,7 +71,10 @@ public class TestaGeracaoJson {
 		.append("],")
 		.append("\"formato\":\"PDF\"")
 		.append(",")
-		.append("\"grupos\":[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}]")
+		.append("\"grupos\":[{\"name\":\"municipio\",\"description\":\"Município\"},{\"name\":\"localidade\",\"description\":\"Localidade\"}")
+		.append("],")
+		.append("\"totalizadores\":[{\"name\":\"unidadeMedida\"}")
+		.append("]")
 		.append("}");
 		
 		ReportDTO report = new ReportDTO("", null, TesteReportDTO.class);

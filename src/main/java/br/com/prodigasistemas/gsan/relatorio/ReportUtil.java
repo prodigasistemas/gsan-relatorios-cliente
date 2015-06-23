@@ -15,60 +15,72 @@ import com.sun.jersey.api.client.WebResource;
 
 public class ReportUtil {
 	
-	public List<ReportField> headerFieldsFromClass(Class t) {
-		return fieldsFromClass(t, false, true);
-	}
+	private static int HEADER = 1;
+	private static int GROUP = 2;
+	private static int TOTALIZER = 3;
 
-	public List<ReportField> groupFieldsFromClass(Class t) {
-		return fieldsFromClass(t, true, false);
+	public List<ReportField> headerFieldsFromClass(Class t) {
+		return fieldsFromClass(t, HEADER);
 	}
 	
-	public List<ReportField> fieldsFromClass(Class t, boolean group, boolean header) {
+	public List<ReportField> groupFieldsFromClass(Class t) {
+		return fieldsFromClass(t, GROUP);
+	}
+	
+	public List<ReportField> totalizerFieldsFromClass(Class t) {
+		return fieldsFromClass(t, TOTALIZER);
+	}
+	
+	public List<ReportField> fieldsFromClass(Class t, int fieldType) {
 		Field[] campos = t.getDeclaredFields();
 		List<ReportField> fields = new ArrayList<ReportField>();
+
 		for (Field field : campos) {
-			if (field.isAnnotationPresent(ReportElementType.class)){
-				ReportElementType campo  = field.getAnnotation(ReportElementType.class);
-				if ((group && campo.group()) || (header && campo.header())){
+			if (field.isAnnotationPresent(ReportElementType.class)) {
+				ReportElementType campo = field.getAnnotation(ReportElementType.class);
+
+				if (fieldType == HEADER && campo.header()) {
+					fields.add(new ReportField(field.getName(), campo.description(), campo.align()));
+				} else if (fieldType == GROUP && campo.group()) {
 					fields.add(new ReportField(field.getName(), campo.description()));
+				} else if (fieldType == TOTALIZER && campo.totalizer()) {
+					fields.add(new ReportField(field.getName()));
 				}
 			}
 		}
-		
+
 		return fields;
 	}
-	
-	public void invokeReport(ReportDTO report) throws IOException, Exception{
+
+	public void invokeReport(ReportDTO report, String url) throws IOException, Exception {
 		Gson gson = new Gson();
-		
+
 		String json = gson.toJson(report);
-		
+
 		Client client = Client.create();
-		
-		WebResource webResource = client.resource("http://hrelatorios.cosanpa.pa.gov.br/relatorios");
-		
-		ClientResponse response = webResource
-				.type("application/json")
-				.post(ClientResponse.class, json);
-		
+
+		WebResource webResource = client.resource(url);
+
+		ClientResponse response = webResource.type("application/json").post(ClientResponse.class, json);
+
 		InputStream input = response.getEntityInputStream();
-		
+
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-		
+
 		StringBuilder builder = new StringBuilder();
 		String linha = null;
-	
-		while ((linha = reader.readLine()) != null){
+
+		while ((linha = reader.readLine()) != null) {
 			builder.append(linha);
 		}
-		
-		if (builder.length() == 0 || response.getStatus() != 200){
+
+		if (builder.length() == 0 || response.getStatus() != 200) {
 			throw new Exception("Erro ao acessar servico");
 		}
-		
+
 		ReportJsonReturn jsonRetorno = gson.fromJson(builder.toString(), ReportJsonReturn.class);
-		
-		if (jsonRetorno.temErro()){
+
+		if (jsonRetorno.temErro()) {
 			throw new Exception("Erro no retorno: " + jsonRetorno.getErro());
 		}
 	}

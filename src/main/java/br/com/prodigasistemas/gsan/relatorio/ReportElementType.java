@@ -11,4 +11,6 @@ public @interface ReportElementType {
 	String description() default "";
 	boolean header() default true;
 	boolean group() default false;
+	boolean totalizer() default false;
+	String align() default "left";
 }

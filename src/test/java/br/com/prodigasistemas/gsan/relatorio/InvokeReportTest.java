@@ -1,69 +1,70 @@
 package br.com.prodigasistemas.gsan.relatorio;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public class InvokeReportServiceImoveis {
-
+public class InvokeReportTest {
+    
 	public static void main(String[] args) throws Exception {
-		ReportDTO report = new ReportDTO("", null, AlteracaoImovelDTO.class);
+
+		ReportDTO report = new ReportDTO("", "teste.pdf", TesteReportDTO.class);
+
 		List<ReportItemDTO> linhas = new ArrayList<ReportItemDTO>();
+		ReportItemDTO i1 = new TesteReportDTO("belem", "marco", "agua ardente", "2");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("belem", "marco", "cano", "2");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("belem", "marco", "agua", "14");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("belem", "marco", "coco", "6");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("belem", "marco", "soda", "11");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("belem", "pedreira", "agua", "5");
+		linhas.add(i1);
+		i1 = new TesteReportDTO("ananindeua", "guanabara", "agua", "5");
+		linhas.add(i1);
 
-		Scanner scanner = new Scanner(new File("alteracoes_imoveis.txt"));
-		String[] campos = null;
-		while (scanner.hasNextLine()){
-			campos = scanner.nextLine().split(";");
-			linhas.add(new AlteracaoImovelDTO(campos[0], campos[1], campos[2], campos[3]));
-		}
 		report.addLinhas(linhas);
-		
-		invokeReport(report);
-	}
 
-	protected static void invokeReport(ReportDTO report) throws IOException, Exception {
 		Gson gson = new Gson();
-		
+
 		String json = gson.toJson(report);
 		
 		Client client = Client.create();
-		
-		WebResource webResource = client.resource("http://192.168.0.18:3000/produtos_quimicos");
-		
-		ClientResponse response = webResource
-				.type("application/json")
-				.post(ClientResponse.class, json);
-		
+
+		WebResource webResource = client.resource("http://localhost:3000/relatorios/");
+
+		ClientResponse response = webResource.type("application/json").post(ClientResponse.class, json);
+
 		InputStream input = response.getEntityInputStream();
-		
+
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-		
+
 		StringBuilder builder = new StringBuilder();
 		String linha = null;
-		while ((linha = reader.readLine()) != null){
+		while ((linha = reader.readLine()) != null) {
 			builder.append(linha);
 		}
-		
-		if (builder.length() == 0 || response.getStatus() != 200){
+
+		if (builder.length() == 0 || response.getStatus() != 200) {
 			throw new Exception("Erro ao acessar servico");
 		}
-		
+
 		ReportJsonReturn jsonRetorno = gson.fromJson(builder.toString(), ReportJsonReturn.class);
-		
-		if (jsonRetorno.temErro()){
+
+		if (jsonRetorno.temErro()) {
 			throw new Exception("Erro no retorno: " + jsonRetorno.getErro());
 		}
-		
+
 		System.out.println("Url do report: " + jsonRetorno.getUrl());
 	}
 }
