@@ -17,6 +17,9 @@ public class TesteReportDTO implements ReportItemDTO{
 	@ReportElementType(description="Unidade de Medida", align="right", totalizer=true)
 	private String unidadeMedida;
 	
+	@ReportElementType(description="Data de Nascimento", type=ReportElementType.TYPE_DATE)
+	private String data_nascimento;
+	
 	public TesteReportDTO(){
 	}
 	
