@@ -9,12 +9,12 @@ O GSAN Relatorios Cliente foi desenvolvido e disponibilizado com objetivo de agi
 **Integrações**
 
 **Gsan** 
-	* Módulo de Cadastro
-	* Módulo de Micromedição
-	* Módulo de Faturamento
-	* Módulo de Cobrança
-	* Módulo de Arrecadação
-	* Módulo de Atendimento ao Público
+* Módulo de Cadastro
+* Módulo de Micromedição
+* Módulo de Faturamento
+* Módulo de Cobrança
+* Módulo de Arrecadação
+* Módulo de Atendimento ao Público
 
 Requisitos de Infra-Estrutura
 ===
