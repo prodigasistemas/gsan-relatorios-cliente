@@ -2,7 +2,7 @@ gsan-relatorios-cliente
 =====================
 
 
-O GSAN Relatorios Cliente foi desenvolvido e disponibilizado com objetivo de agilizar a geração de ralatórios e padronizar o layout dos mesmos. Possui diversas classes que definem a geração do relatorio por agrupamentos.
+O GSAN Relatorios Cliente foi desenvolvido e disponibilizado com objetivo de agilizar a geração de relatórios e padronizar o layout dos mesmos. Possui diversas classes que definem a geração do relatorio por agrupamentos.
 
 
 
@@ -19,5 +19,5 @@ O GSAN Relatorios Cliente foi desenvolvido e disponibilizado com objetivo de agi
 Requisitos de Infra-Estrutura
 ===
 
-* Java 1.5 / 1.6
+* [Java 1.5 / 1.6](https://github.com/prodigasistemas/gsan/wiki/Instala%C3%A7%C3%A3o-do-Java)
 * [JBoss 4.0.1sp1](https://github.com/prodigasistemas/gsan/wiki/Instala%C3%A7%C3%A3o-do-JBoss)
